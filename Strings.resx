@@ -14,7 +14,7 @@
   </resheader>
   <data name="AppTitle" xml:space="preserve"><value>Vortex Mod Lists</value></data>
   <data name="GameLabel" xml:space="preserve"><value>Game</value></data>
-  <data name="StateFileLabel" xml:space="preserve"><value>Vortex state file</value></data>
+  <data name="StateFileLabel" xml:space="preserve"><value>Vortex data source</value></data>
   <data name="BrowseButton" xml:space="preserve"><value>Browse...</value></data>
   <data name="ReloadButton" xml:space="preserve"><value>Reload</value></data>
   <data name="ExportScopeLabel" xml:space="preserve"><value>Export scope</value></data>
@@ -37,14 +37,14 @@
   <data name="LinkText" xml:space="preserve"><value>Link</value></data>
   <data name="StatusActive" xml:space="preserve"><value>Active</value></data>
   <data name="StatusInactive" xml:space="preserve"><value>Inactive</value></data>
-  <data name="NoDataMessage" xml:space="preserve"><value>No mods found. Check the Vortex state file path.</value></data>
+  <data name="NoDataMessage" xml:space="preserve"><value>No mods found. Check the Vortex JSON source path.</value></data>
   <data name="ClipboardCopied" xml:space="preserve"><value>Content copied to clipboard.</value></data>
   <data name="ClipboardError" xml:space="preserve"><value>Clipboard operation failed.</value></data>
   <data name="ExportSuccess" xml:space="preserve"><value>Export completed.</value></data>
   <data name="ExportError" xml:space="preserve"><value>Export failed.</value></data>
-  <data name="LoadError" xml:space="preserve"><value>Unable to read Vortex state file.</value></data>
-  <data name="OpenStateFileTitle" xml:space="preserve"><value>Select Vortex state file</value></data>
-  <data name="StateFileFilter" xml:space="preserve"><value>Vortex state file|state.v2|JSON files|*.json;*.v2|All files|*.*</value></data>
+  <data name="LoadError" xml:space="preserve"><value>Unable to read Vortex JSON source file.</value></data>
+  <data name="OpenStateFileTitle" xml:space="preserve"><value>Select Vortex JSON source</value></data>
+  <data name="StateFileFilter" xml:space="preserve"><value>Preferred backup (hourly.json)|hourly.json|JSON files|*.json|All files|*.*</value></data>
   <data name="SaveCsvTitle" xml:space="preserve"><value>Save CSV export</value></data>
   <data name="SaveCsvFilter" xml:space="preserve"><value>CSV file|*.csv</value></data>
   <data name="SaveMarkdownTitle" xml:space="preserve"><value>Save Markdown export</value></data>

@@ -11,7 +11,7 @@ public static class LocalizationService
     public static void InitializeCulture()
     {
         var culture = CultureInfo.CurrentUICulture;
-        if (!string.Equals(culture.TwoLetterISOLanguageName, "ded", StringComparison.OrdinalIgnoreCase))
+        if (!string.Equals(culture.TwoLetterISOLanguageName, "de", StringComparison.OrdinalIgnoreCase))
         {
             culture = CultureInfo.GetCultureInfo("en");
         }

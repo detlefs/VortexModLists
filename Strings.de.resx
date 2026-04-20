@@ -14,7 +14,7 @@
   </resheader>
   <data name="AppTitle" xml:space="preserve"><value>Vortex Mod-Listen</value></data>
   <data name="GameLabel" xml:space="preserve"><value>Spiel</value></data>
-  <data name="StateFileLabel" xml:space="preserve"><value>Vortex-Statusdatei</value></data>
+  <data name="StateFileLabel" xml:space="preserve"><value>Vortex-Datenquelle</value></data>
   <data name="BrowseButton" xml:space="preserve"><value>Durchsuchen...</value></data>
   <data name="ReloadButton" xml:space="preserve"><value>Neu laden</value></data>
   <data name="ExportScopeLabel" xml:space="preserve"><value>Exportbereich</value></data>
@@ -37,14 +37,14 @@
   <data name="LinkText" xml:space="preserve"><value>Link</value></data>
   <data name="StatusActive" xml:space="preserve"><value>Aktiv</value></data>
   <data name="StatusInactive" xml:space="preserve"><value>Inaktiv</value></data>
-  <data name="NoDataMessage" xml:space="preserve"><value>Keine Mods gefunden. Bitte den Pfad zur Vortex-Statusdatei prüfen.</value></data>
+  <data name="NoDataMessage" xml:space="preserve"><value>Keine Mods gefunden. Bitte den Pfad zur Vortex-JSON-Quelle prüfen.</value></data>
   <data name="ClipboardCopied" xml:space="preserve"><value>Inhalt wurde in die Zwischenablage kopiert.</value></data>
   <data name="ClipboardError" xml:space="preserve"><value>Zwischenablagevorgang fehlgeschlagen.</value></data>
   <data name="ExportSuccess" xml:space="preserve"><value>Export abgeschlossen.</value></data>
   <data name="ExportError" xml:space="preserve"><value>Export fehlgeschlagen.</value></data>
-  <data name="LoadError" xml:space="preserve"><value>Vortex-Statusdatei konnte nicht gelesen werden.</value></data>
-  <data name="OpenStateFileTitle" xml:space="preserve"><value>Vortex-Statusdatei auswählen</value></data>
-  <data name="StateFileFilter" xml:space="preserve"><value>Vortex-Statusdatei|state.v2|JSON-Dateien|*.json;*.v2|Alle Dateien|*.*</value></data>
+  <data name="LoadError" xml:space="preserve"><value>Vortex-JSON-Quelle konnte nicht gelesen werden.</value></data>
+  <data name="OpenStateFileTitle" xml:space="preserve"><value>Vortex-JSON-Quelle auswählen</value></data>
+  <data name="StateFileFilter" xml:space="preserve"><value>Bevorzugtes Backup (hourly.json)|hourly.json|JSON-Dateien|*.json|Alle Dateien|*.*</value></data>
   <data name="SaveCsvTitle" xml:space="preserve"><value>CSV-Export speichern</value></data>
   <data name="SaveCsvFilter" xml:space="preserve"><value>CSV-Datei|*.csv</value></data>
   <data name="SaveMarkdownTitle" xml:space="preserve"><value>Markdown-Export speichern</value></data>

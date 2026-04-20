@@ -9,7 +9,7 @@ public sealed class VortexStateService
     public string GetDefaultStatePath()
     {
         var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        return Path.Combine(appData, "Vortex");
+        return Path.Combine(appData, "Vortex", "temp", "state_backups_full", "hourly.json");
     }
 
     public IReadOnlyList<ModEntry> LoadMods(string statePath)
@@ -65,6 +65,7 @@ public sealed class VortexStateService
 
         if (Directory.Exists(fullPath))
         {
+            AddPreferredBackupFiles(fullPath, Add);
             AddKnownFiles(fullPath, Add);
             AddSearchPatterns(fullPath, Add);
         }
@@ -81,6 +82,7 @@ public sealed class VortexStateService
                     var maybeDirectory = Path.Combine(parent, fileName);
                     if (Directory.Exists(maybeDirectory))
                     {
+                        AddPreferredBackupFiles(maybeDirectory, Add);
                         AddKnownFiles(maybeDirectory, Add);
                         AddSearchPatterns(maybeDirectory, Add);
                     }
@@ -94,9 +96,15 @@ public sealed class VortexStateService
         }
     }
 
+    private static void AddPreferredBackupFiles(string directoryPath, Action<string> add)
+    {
+        add(Path.Combine(directoryPath, "temp", "state_backups_full", "hourly.json"));
+        add(Path.Combine(directoryPath, "state_backups_full", "hourly.json"));
+        add(Path.Combine(directoryPath, "hourly.json"));
+    }
+
     private static void AddKnownFiles(string directoryPath, Action<string> add)
     {
-        add(Path.Combine(directoryPath, "state.v2"));
         add(Path.Combine(directoryPath, "state.json"));
         add(Path.Combine(directoryPath, "vortex-state.json"));
     }
@@ -104,11 +112,6 @@ public sealed class VortexStateService
     private static void AddSearchPatterns(string directoryPath, Action<string> add)
     {
         foreach (var candidate in Directory.EnumerateFiles(directoryPath, "*.json", SearchOption.AllDirectories))
-        {
-            add(candidate);
-        }
-
-        foreach (var candidate in Directory.EnumerateFiles(directoryPath, "*.v2", SearchOption.AllDirectories))
         {
             add(candidate);
         }
