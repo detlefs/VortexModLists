@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppTitle" xml:space="preserve"><value>Vortex Mod Lists</value></data>
+  <data name="GameLabel" xml:space="preserve"><value>Game</value></data>
+  <data name="StateFileLabel" xml:space="preserve"><value>Vortex state file</value></data>
+  <data name="BrowseButton" xml:space="preserve"><value>Browse...</value></data>
+  <data name="ReloadButton" xml:space="preserve"><value>Reload</value></data>
+  <data name="ExportScopeLabel" xml:space="preserve"><value>Export scope</value></data>
+  <data name="StatusFilterLabel" xml:space="preserve"><value>Status filter</value></data>
+  <data name="StatusFilterAll" xml:space="preserve"><value>All statuses</value></data>
+  <data name="StatusFilterActive" xml:space="preserve"><value>Active only</value></data>
+  <data name="StatusFilterInactive" xml:space="preserve"><value>Inactive only</value></data>
+  <data name="SelectedGameScope" xml:space="preserve"><value>Selected game</value></data>
+  <data name="AllGamesScope" xml:space="preserve"><value>All games</value></data>
+  <data name="ExportCsvButton" xml:space="preserve"><value>Export CSV</value></data>
+  <data name="ExportMarkdownButton" xml:space="preserve"><value>Export Markdown</value></data>
+  <data name="ExportExcelButton" xml:space="preserve"><value>Export Excel</value></data>
+  <data name="CopyCsvButton" xml:space="preserve"><value>Copy CSV</value></data>
+  <data name="CopyMarkdownButton" xml:space="preserve"><value>Copy Markdown</value></data>
+  <data name="ColumnModName" xml:space="preserve"><value>modName</value></data>
+  <data name="ColumnId" xml:space="preserve"><value>ID</value></data>
+  <data name="ColumnVersion" xml:space="preserve"><value>Version</value></data>
+  <data name="ColumnHomepage" xml:space="preserve"><value>Homepage</value></data>
+  <data name="ColumnStatus" xml:space="preserve"><value>Status</value></data>
+  <data name="LinkText" xml:space="preserve"><value>Link</value></data>
+  <data name="StatusActive" xml:space="preserve"><value>Active</value></data>
+  <data name="StatusInactive" xml:space="preserve"><value>Inactive</value></data>
+  <data name="NoDataMessage" xml:space="preserve"><value>No mods found. Check the Vortex state file path.</value></data>
+  <data name="ClipboardCopied" xml:space="preserve"><value>Content copied to clipboard.</value></data>
+  <data name="ClipboardError" xml:space="preserve"><value>Clipboard operation failed.</value></data>
+  <data name="ExportSuccess" xml:space="preserve"><value>Export completed.</value></data>
+  <data name="ExportError" xml:space="preserve"><value>Export failed.</value></data>
+  <data name="LoadError" xml:space="preserve"><value>Unable to read Vortex state file.</value></data>
+  <data name="OpenStateFileTitle" xml:space="preserve"><value>Select Vortex state file</value></data>
+  <data name="StateFileFilter" xml:space="preserve"><value>Vortex state file|state.v2|JSON files|*.json;*.v2|All files|*.*</value></data>
+  <data name="SaveCsvTitle" xml:space="preserve"><value>Save CSV export</value></data>
+  <data name="SaveCsvFilter" xml:space="preserve"><value>CSV file|*.csv</value></data>
+  <data name="SaveMarkdownTitle" xml:space="preserve"><value>Save Markdown export</value></data>
+  <data name="SaveMarkdownFilter" xml:space="preserve"><value>Markdown file|*.md</value></data>
+  <data name="SaveExcelTitle" xml:space="preserve"><value>Save Excel export</value></data>
+  <data name="SaveExcelFilter" xml:space="preserve"><value>Excel file|*.xlsx</value></data>
+</root>

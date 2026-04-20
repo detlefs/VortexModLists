@@ -1,0 +1,98 @@
+﻿<Window x:Class="VortexModLists.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Height="720"
+        Width="1200"
+        MinHeight="500"
+        MinWidth="900"
+        Background="{DynamicResource AppBackgroundBrush}"
+        Foreground="{DynamicResource AppForegroundBrush}">
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="StateFileLabel" VerticalAlignment="Center" Margin="0,0,8,0" />
+            <TextBox x:Name="StateFilePathTextBox" Grid.Column="1" Margin="0,0,8,0" IsReadOnly="True" Background="{DynamicResource AppControlBackgroundBrush}" />
+            <Button x:Name="BrowseButton" Grid.Column="2" MinWidth="110" Margin="0,0,8,0" Click="BrowseButton_Click" />
+            <Button x:Name="ReloadButton" Grid.Column="3" MinWidth="110" Click="ReloadButton_Click" />
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="260" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="220" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="GameLabel" VerticalAlignment="Center" Margin="0,0,8,0" />
+            <ComboBox x:Name="GameComboBox"
+                      Grid.Column="1"
+                      Margin="0,0,16,0"
+                      Background="{DynamicResource AppControlBackgroundBrush}"
+                      Foreground="{DynamicResource AppControlForegroundBrush}"
+                      BorderBrush="{DynamicResource AppControlBorderBrush}"
+                      ItemContainerStyle="{StaticResource ThemedComboBoxItemStyle}"
+                      SelectionChanged="GameComboBox_SelectionChanged" />
+            <TextBlock x:Name="ExportScopeLabel" Grid.Column="2" VerticalAlignment="Center" Margin="0,0,8,0" />
+            <ComboBox x:Name="ExportScopeComboBox"
+                      Grid.Column="3"
+                      Background="{DynamicResource AppControlBackgroundBrush}"
+                      Foreground="{DynamicResource AppControlForegroundBrush}"
+                      BorderBrush="{DynamicResource AppControlBorderBrush}"
+                      ItemContainerStyle="{StaticResource ThemedComboBoxItemStyle}" />
+        </Grid>
+
+        <UniformGrid Grid.Row="2" Columns="5" Margin="0,0,0,8">
+            <Button x:Name="ExportCsvButton" Margin="0,0,8,0" Click="ExportCsvButton_Click" />
+            <Button x:Name="ExportMarkdownButton" Margin="0,0,8,0" Click="ExportMarkdownButton_Click" />
+            <Button x:Name="ExportExcelButton" Margin="0,0,8,0" Click="ExportExcelButton_Click" />
+            <Button x:Name="CopyCsvButton" Margin="0,0,8,0" Click="CopyCsvButton_Click" />
+            <Button x:Name="CopyMarkdownButton" Click="CopyMarkdownButton_Click" />
+        </UniformGrid>
+
+        <DataGrid x:Name="ModsDataGrid"
+                  Grid.Row="3"
+                  AutoGenerateColumns="False"
+                  HeadersVisibility="Column"
+                  IsReadOnly="True"
+                  GridLinesVisibility="Horizontal"
+                  HorizontalGridLinesBrush="{DynamicResource AppGridLineBrush}"
+                  RowBackground="{DynamicResource AppControlBackgroundBrush}"
+                  AlternatingRowBackground="{DynamicResource AppBackgroundBrush}"
+                  BorderBrush="{DynamicResource AppGridLineBrush}">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="ModNameColumn" Binding="{Binding ModName}" Width="3*" />
+                <DataGridTextColumn x:Name="IdColumn" Binding="{Binding Id}" Width="2*" />
+                <DataGridTextColumn x:Name="VersionColumn" Binding="{Binding Version}" Width="2*" />
+                <DataGridTemplateColumn x:Name="HomepageColumn" Width="2*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Hyperlink NavigateUri="{Binding Homepage}" RequestNavigate="Homepage_RequestNavigate">
+                                    <Run Text="{Binding LinkText}" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn x:Name="StatusColumn" Binding="{Binding Status}" Width="2*" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
