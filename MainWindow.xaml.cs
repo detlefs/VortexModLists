@@ -277,6 +277,15 @@ namespace VortexModLists
             LoadMods();
         }
 
+        private void InfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new InfoDialog
+            {
+                Owner = this
+            };
+            dialog.ShowDialog();
+        }
+
         private void GameComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             RefreshGrid();

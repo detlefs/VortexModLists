@@ -8,6 +8,7 @@
         Width="1200"
         MinHeight="500"
         MinWidth="900"
+        Icon="/Assets/app.ico"
         Background="{DynamicResource AppBackgroundBrush}"
         Foreground="{DynamicResource AppForegroundBrush}">
     <Grid Margin="12">
@@ -24,12 +25,14 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <TextBlock x:Name="StateFileLabel" VerticalAlignment="Center" Margin="0,0,8,0" />
             <TextBox x:Name="StateFilePathTextBox" Grid.Column="1" Margin="0,0,8,0" IsReadOnly="True" Background="{DynamicResource AppControlBackgroundBrush}" />
             <Button x:Name="BrowseButton" Grid.Column="2" MinWidth="110" Margin="0,0,8,0" Click="BrowseButton_Click" />
-            <Button x:Name="ReloadButton" Grid.Column="3" MinWidth="110" Click="ReloadButton_Click" />
+            <Button x:Name="ReloadButton" Grid.Column="3" MinWidth="110" Margin="0,0,8,0" Click="ReloadButton_Click" />
+            <Button x:Name="InfoButton" Grid.Column="4" Width="28" Height="28" FontSize="14" FontWeight="SemiBold" Content="i" ToolTip="Info" Click="InfoButton_Click" />
         </Grid>
 
         <Grid Grid.Row="1" Margin="0,0,0,8">
