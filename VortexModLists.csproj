@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include=".github\copilot-instructions.md" />
     <None Include=".github\workflows\build.yml" />
   </ItemGroup>
 
