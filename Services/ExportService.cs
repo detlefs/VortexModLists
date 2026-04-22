@@ -1,6 +1,4 @@
-using System.IO;
-using System.IO.Compression;
-using System.Security;
+using ClosedXML.Excel;
 using System.Text;
 using VortexModLists.Models;
 
@@ -39,10 +37,10 @@ public static class ExportService
 
         foreach (var group in groups)
         {
-            sb.AppendLine($"## {group.Key}");
-            sb.AppendLine();
-            sb.AppendLine("| modName | ID | Version | Homepage | Status |");
-            sb.AppendLine("|---|---|---|---|---|");
+            sb.AppendLine($"## {group.Key}")
+              .AppendLine()
+              .AppendLine("| modName | ID | Version | Homepage | Status |")
+              .AppendLine("|---|---|---|---|---|");
 
             foreach (var mod in group.OrderBy(m => m.ModName, StringComparer.OrdinalIgnoreCase))
             {
@@ -58,98 +56,51 @@ public static class ExportService
 
     public static void ToExcel(string filePath, IEnumerable<ModEntry> mods, string statusActive, string statusInactive)
     {
-        var rows = mods.ToList();
-        using var archive = ZipFile.Open(filePath, ZipArchiveMode.Create);
+        var groups = mods
+            .GroupBy(m => m.Game, StringComparer.OrdinalIgnoreCase)
+            .OrderBy(g => g.Key, StringComparer.OrdinalIgnoreCase);
 
-        WriteEntry(archive, "[Content_Types].xml",
-            "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
-            "<Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\">" +
-            "<Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/>" +
-            "<Default Extension=\"xml\" ContentType=\"application/xml\"/>" +
-            "<Override PartName=\"/xl/workbook.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml\"/>" +
-            "<Override PartName=\"/xl/worksheets/sheet1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml\"/>" +
-            "</Types>");
+        using var workbook = new XLWorkbook();
 
-        WriteEntry(archive, "_rels/.rels",
-            "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
-            "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">" +
-            "<Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"xl/workbook.xml\"/>" +
-            "</Relationships>");
-
-        WriteEntry(archive, "xl/workbook.xml",
-            "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
-            "<workbook xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\">" +
-            "<sheets><sheet name=\"Mods\" sheetId=\"1\" r:id=\"rId1\"/></sheets></workbook>");
-
-        WriteEntry(archive, "xl/_rels/workbook.xml.rels",
-            "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
-            "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">" +
-            "<Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet\" Target=\"worksheets/sheet1.xml\"/>" +
-            "</Relationships>");
-
-        // Collect hyperlinks: rowIndex (1-based, header = 1) → url
-        // Homepage is column E (index 5, col letter "E")
-        var hyperlinks = new List<(int row, string url)>();
-        var sheet = new StringBuilder();
-        sheet.Append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
-            "<worksheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" " +
-            "xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\">" +
-            "<sheetData>");
-
-        WriteRow(sheet, new[] { "Game", "modName", "ID", "Version", "Homepage", "Status" });
-
-        for (var i = 0; i < rows.Count; i++)
+        foreach (var group in groups)
         {
-            var mod = rows[i];
-            var rowIndex = i + 2; // 1-based, row 1 = header
+            var sheetName = SanitizeSheetName(group.Key);
+            var ws = workbook.Worksheets.Add(sheetName);
 
-            WriteRow(sheet, new[]
+            string[] headers = { "modName", "ID", "Version", "Homepage", "Status" };
+            for (var i = 0; i < headers.Length; i++)
             {
-                mod.Game,
-                mod.ModName,
-                mod.Id,
-                mod.Version,
-                string.IsNullOrWhiteSpace(mod.Homepage) ? string.Empty : "Link",
-                mod.IsActive ? statusActive : statusInactive
-            });
-
-            if (!string.IsNullOrWhiteSpace(mod.Homepage))
-            {
-                hyperlinks.Add((rowIndex, mod.Homepage));
+                var cell = ws.Cell(1, i + 1);
+                cell.Value = headers[i];
+                cell.Style.Font.Bold = true;
             }
-        }
 
-        sheet.Append("</sheetData>");
+            var rows = group
+                .OrderBy(m => m.ModName, StringComparer.OrdinalIgnoreCase)
+                .ToList();
 
-        // Write <hyperlinks> element referencing relationship IDs
-        if (hyperlinks.Count > 0)
-        {
-            sheet.Append("<hyperlinks>");
-            for (var i = 0; i < hyperlinks.Count; i++)
+            for (var i = 0; i < rows.Count; i++)
             {
-                var (row, _) = hyperlinks[i];
-                sheet.Append($"<hyperlink ref=\"E{row}\" r:id=\"hId{i + 1}\"/>");
+                var mod = rows[i];
+                var row = i + 2;
+
+                ws.Cell(row, 1).Value = mod.ModName;
+                ws.Cell(row, 2).Value = mod.Id;
+                ws.Cell(row, 3).Value = mod.Version;
+                ws.Cell(row, 5).Value = mod.IsActive ? statusActive : statusInactive;
+
+                if (!string.IsNullOrWhiteSpace(mod.Homepage))
+                {
+                    var cell = ws.Cell(row, 4);
+                    cell.Value = "Link";
+                    cell.SetHyperlink(new XLHyperlink(mod.Homepage));
+                }
             }
-            sheet.Append("</hyperlinks>");
+
+            ws.Columns().AdjustToContents();
         }
 
-        sheet.Append("</worksheet>");
-        WriteEntry(archive, "xl/worksheets/sheet1.xml", sheet.ToString());
-
-        // Write sheet1.xml.rels with one external relationship per hyperlink
-        var sheetRels = new StringBuilder();
-        sheetRels.Append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
-            "<Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">");
-        for (var i = 0; i < hyperlinks.Count; i++)
-        {
-            var (_, url) = hyperlinks[i];
-            sheetRels.Append(
-                $"<Relationship Id=\"hId{i + 1}\" " +
-                "Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink\" " +
-                $"Target=\"{SecurityElement.Escape(url)}\" TargetMode=\"External\"/>");
-        }
-        sheetRels.Append("</Relationships>");
-        WriteEntry(archive, "xl/worksheets/_rels/sheet1.xml.rels", sheetRels.ToString());
+        workbook.SaveAs(filePath);
     }
 
     private static string Csv(string value)
@@ -158,28 +109,20 @@ public static class ExportService
         return $"\"{sanitized}\"";
     }
 
-    private static void WriteEntry(ZipArchive archive, string path, string content)
-    {
-        var entry = archive.CreateEntry(path, CompressionLevel.Optimal);
-        using var stream = entry.Open();
-        using var writer = new StreamWriter(stream, new UTF8Encoding(false));
-        writer.Write(content);
-    }
-
-    private static void WriteRow(StringBuilder sb, IReadOnlyList<string> values)
-    {
-        sb.Append("<row>");
-        foreach (var value in values)
-        {
-            sb.Append("<c t=\"inlineStr\"><is><t>");
-            sb.Append(SecurityElement.Escape(value));
-            sb.Append("</t></is></c>");
-        }
-        sb.Append("</row>");
-    }
-
     private static string EscapeMarkdown(string value)
     {
         return value.Replace("|", "\\|").Replace("\r", string.Empty).Replace("\n", " ").Trim();
+    }
+
+    private static string SanitizeSheetName(string name)
+    {
+        // Excel sheet names: max 31 chars, no \ / ? * [ ]
+        var invalid = new[] { '\\', '/', '?', '*', '[', ']', ':' };
+        var sanitized = string.Concat(name.Select(c => invalid.Contains(c) ? '_' : c));
+        if (sanitized.Length > 31)
+        {
+            sanitized = sanitized[..31];
+        }
+        return string.IsNullOrWhiteSpace(sanitized) ? "Mods" : sanitized;
     }
 }

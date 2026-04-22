@@ -22,7 +22,8 @@
 
         <StackPanel Grid.Row="1">
             <TextBlock x:Name="AuthorTextBlock" Margin="0,0,0,6" />
-            <TextBlock x:Name="VersionTextBlock" Margin="0,0,0,12" />
+            <TextBlock x:Name="VersionTextBlock" Margin="0,0,0,6" />
+            <TextBlock x:Name="CopyrightTextBlock" Margin="0,0,0,12" />
             <Button Width="90" HorizontalAlignment="Right" IsDefault="True" Click="CloseButton_Click">OK</Button>
         </StackPanel>
     </Grid>

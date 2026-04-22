@@ -26,10 +26,12 @@ namespace VortexModLists
             }
 
             var version = GetDisplayVersion(assembly);
+            var copyright = assembly.GetCustomAttribute<AssemblyCopyrightAttribute>()?.Copyright ?? string.Empty;
 
             AppNameTextBlock.Text = appName;
             AuthorTextBlock.Text = $"Autor: {author}";
             VersionTextBlock.Text = $"Version: {version}";
+            CopyrightTextBlock.Text = copyright;
         }
 
         private static string GetDisplayVersion(Assembly assembly)
