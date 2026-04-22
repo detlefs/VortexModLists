@@ -268,7 +268,27 @@ namespace VortexModLists
             if (dialog.ShowDialog(this) == true)
             {
                 StateFilePathTextBox.Text = dialog.FileName;
+                SaveCustomStatePath(dialog.FileName);
                 LoadMods();
+            }
+        }
+
+        private void SaveCustomStatePath(string path)
+        {
+            try
+            {
+                var state = ReadLayoutState() ?? new LayoutState();
+                state.CustomStatePath = path;
+
+                var folder = GetLayoutFolderPath();
+                Directory.CreateDirectory(folder);
+                var filePath = Path.Combine(folder, LayoutFileName);
+                var json = JsonSerializer.Serialize(state, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(filePath, json);
+            }
+            catch
+            {
+                // intentionally ignored
             }
         }
 
@@ -415,6 +435,11 @@ namespace VortexModLists
                 return;
             }
 
+            if (!string.IsNullOrWhiteSpace(state.CustomStatePath) && File.Exists(state.CustomStatePath))
+            {
+                StateFilePathTextBox.Text = state.CustomStatePath;
+            }
+
             if (IsValidWindowBounds(state.Left, state.Top, state.Width, state.Height))
             {
                 Left = state.Left;
@@ -450,6 +475,7 @@ namespace VortexModLists
                     Width = bounds.Width,
                     Height = bounds.Height,
                     IsMaximized = WindowState == WindowState.Maximized,
+                    CustomStatePath = ReadLayoutState()?.CustomStatePath,
                     ColumnWidths = new Dictionary<string, double>(StringComparer.OrdinalIgnoreCase)
                     {
                         ["modName"] = ModNameColumn.ActualWidth,
@@ -545,6 +571,7 @@ namespace VortexModLists
             public double Width { get; set; }
             public double Height { get; set; }
             public bool IsMaximized { get; set; }
+            public string? CustomStatePath { get; set; }
             public Dictionary<string, double> ColumnWidths { get; set; } = new(StringComparer.OrdinalIgnoreCase);
         }
 
