@@ -2,6 +2,8 @@
 
 VortexModLists is an app for Windows that reads mod data from a local Nexus Mods Vortex installation and displays it in a clear table per game.
 
+The main purpose is to provide a convenient way to export your Vortex mod lists for backup, sharing or documentation.
+
 ## What it does
 
 - Detects and loads Vortex mod data from JSON sources (preferred: backup `hourly.json`).
@@ -89,8 +91,7 @@ Additional actions:
 
 ## Requirements
 
-- Windows
-- .NET 10 runtime
+- Windows 10 or newer in 64 bit
 - Nexus Mods Vortex installed with local state data available
 
 ## Notes
