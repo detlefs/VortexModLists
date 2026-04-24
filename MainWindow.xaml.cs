@@ -435,7 +435,7 @@ namespace VortexModLists
                 return;
             }
 
-            if (!string.IsNullOrWhiteSpace(state.CustomStatePath) && File.Exists(state.CustomStatePath))
+            if (!string.IsNullOrWhiteSpace(state.CustomStatePath) && (File.Exists(state.CustomStatePath) || Directory.Exists(state.CustomStatePath)))
             {
                 StateFilePathTextBox.Text = state.CustomStatePath;
             }
