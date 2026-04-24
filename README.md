@@ -100,3 +100,10 @@ Additional actions:
 ## Notes
 
 The app reads local Vortex metadata files only. It does not modify your Vortex setup or deployed mods.
+
+## Disclaimer
+
+* I craeted this tool myinly via vibe coding with an AI. It is provided as is without any warranty.
+* I tested it in my own environment and on a Windows 10 test VM with current Vortex (1.16.9) installed.
+* I **did not** test it with older versions of Vortex or on other platforms (e.g. Linux with Wine. I assuem it will not work)
+* If you have ideas for the tool or find bugs, please post on GitHub in Issues or Discussions. I will try to respond when I can (no guarantee).
