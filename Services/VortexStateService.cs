@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using VortexModLists.Models;
 
@@ -19,7 +20,19 @@ public sealed class VortexStateService
 
     public StateLoadResult LoadModsWithSource(string statePath)
     {
-        var candidates = ResolveCandidateFiles(statePath).ToList();
+        var candidates = ResolveCandidateFiles(statePath)
+            .OrderByDescending(f => 
+            {
+                try
+                {
+                    return File.GetLastWriteTimeUtc(f);
+                }
+                catch
+                {
+                    return DateTime.MinValue;
+                }
+            })
+            .ToList();
 
         foreach (var candidate in candidates)
         {

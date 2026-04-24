@@ -24,8 +24,11 @@ VortexModLists reads Vortex metadata from JSON files that contain the `persisten
 ### Preferred source (best choice)
 
 1. **`%AppData%\Vortex\temp\state_backups_full\hourly.json`**
+1. **`%AppData%\Vortex\temp\state_backups_full\startup.json`**
 
-This is treated as the primary source because it is typically the most recent full backup JSON and directly readable.
+These are treated as the primary source because they are typically the most recent full backup JSON and directly readable.
+
+On startup, the app tries to identify the most recently changed file.
 
 ### Other supported sources
 
