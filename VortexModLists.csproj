@@ -6,13 +6,13 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <Version>1.0.1.1</Version>
-    <AssemblyVersion>1.0.1.1</AssemblyVersion>
-    <FileVersion>1.0.1.1</FileVersion>
+    <Version>1.0.1.3</Version>
+    <AssemblyVersion>1.0.1.3</AssemblyVersion>
+    <FileVersion>1.0.1.3</FileVersion>
     <ApplicationIcon>Assets\app.ico</ApplicationIcon>
     <Title></Title>
     <Company>FeltedRed</Company>
-    <Copyright>Copyright © 2026 Detlef Schneider (FeltedRed)</Copyright>
+    <Copyright>Copyright © 2026 Detlef Schneider (FeltedRed/detlefs)</Copyright>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
   </PropertyGroup>
 
@@ -23,6 +23,8 @@
   <ItemGroup>
     <None Include=".github\workflows\build.yml" />
     <None Include=".github\workflows\release.yml" />
+    <None Include="installer\VortexModLists.Installer.Bundle\VortexModLists.Installer.Bundle.wixproj" />
+    <None Include="installer\VortexModLists.Installer.Msi\VortexModLists.Installer.Msi.wixproj" />
   </ItemGroup>
 
   <ItemGroup>

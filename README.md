@@ -96,6 +96,15 @@ Additional actions:
 
 - Windows 10 or newer in 64 bit
 - Nexus Mods Vortex installed with local state data available
+- .NET Desktop Runtime 10 (x64)
+
+## Installer and required runtime
+
+The release includes a WiX setup (`VortexModLists-Setup.exe`) and an MSI package.
+
+- The setup checks for the required **.NET Desktop Runtime 10 (x64)**.
+- If the runtime is missing, it is installed automatically before the app MSI.
+- The MSI alone expects the runtime to already be installed.
 
 ## Notes
 
@@ -103,7 +112,7 @@ The app reads local Vortex metadata files only. It does not modify your Vortex s
 
 ## Disclaimer
 
-* I craeted this tool myinly via vibe coding with an AI. It is provided as is without any warranty.
+* I created this tool mainly via vibe coding with an AI. It is provided as is without any warranty.
 * I tested it in my own environment and on a Windows 10 test VM with current Vortex (1.16.9) installed.
-* I **did not** test it with older versions of Vortex or on other platforms (e.g. Linux with Wine. I assuem it will not work)
+* I **did not** test it with older versions of Vortex or on other platforms (e.g. Linux with Wine. I assume it will not work)
 * If you have ideas for the tool or find bugs, please post on GitHub in Issues or Discussions. I will try to respond when I can (no guarantee).

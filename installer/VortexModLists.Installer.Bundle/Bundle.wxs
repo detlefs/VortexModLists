@@ -1,0 +1,40 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:bal="http://wixtoolset.org/schemas/v4/wxs/bal"
+     xmlns:util="http://wixtoolset.org/schemas/v4/wxs/util">
+  <Fragment>
+    <util:RegistrySearch Id="SearchDotNetDesktopRuntime10"
+                         Root="HKLM"
+                         Key="SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedfx\Microsoft.WindowsDesktop.App"
+                         Value="10.0.0"
+                         Result="exists"
+                         Variable="DotNetDesktopRuntime10Installed" />
+  </Fragment>
+
+  <Bundle Name="VortexModLists Setup"
+          Manufacturer="FeltedRed"
+          Version="1.0.1.2"
+          UpgradeCode="4A6C52D4-6EBC-4E13-B630-CBCF3867218F"
+          IconSourceFile="..\..\Assets\app.ico">
+    <BootstrapperApplication>
+      <bal:WixStandardBootstrapperApplication Theme="hyperlinkLicense"
+                                              LicenseUrl="https://github.com/detlefs/VortexModLists/blob/master/LICENSE.txt" />
+    </BootstrapperApplication>
+
+    <Chain>
+      <ExePackage Id="DotNetDesktopRuntime10"
+                  SourceFile="$(var.DotNetDesktopRuntimePath)"
+                  InstallArguments="/install /quiet /norestart"
+                  RepairArguments="/repair /quiet /norestart"
+                  DetectCondition="DotNetDesktopRuntime10Installed"
+                  PerMachine="yes"
+                  Permanent="yes"
+                  Vital="yes"
+                  Protocol="burn" />
+
+      <MsiPackage Id="VortexModListsMsi"
+                  SourceFile="$(var.MsiPath)"
+                  Visible="no"
+                  Vital="yes" />
+    </Chain>
+  </Bundle>
+</Wix>

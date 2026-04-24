@@ -21,29 +21,39 @@ jobs:
         with:
           dotnet-version: "10.0.x"
 
-      - name: Publish (self-contained, single-file)
+      - name: Publish (framework-dependent)
         run: >
           dotnet publish ./VortexModLists.csproj
           -c Release
           -r win-x64
-          --self-contained true
-          -p:PublishSingleFile=true
-          -p:EnableCompressionInSingleFile=true
-          -p:IncludeNativeLibrariesForSelfExtract=true
+          --self-contained false
+          -p:PublishSingleFile=false
           -p:DebugType=None
           -p:DebugSymbols=false
           -o ./publish/win-x64
 
-      - name: Remove PDB files
+      - name: Download .NET Desktop Runtime installer
         shell: pwsh
-        run: Get-ChildItem -Path ./publish/win-x64 -Filter *.pdb -Recurse | Remove-Item -Force
+        run: |
+          New-Item -ItemType Directory -Path ./publish/installer -Force | Out-Null
+          Invoke-WebRequest -Uri "https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/10.0.0/windowsdesktop-runtime-10.0.0-win-x64.exe" -OutFile ./publish/installer/windowsdesktop-runtime-10.0.0-win-x64.exe
 
-      - name: Create ZIP package
-        shell: pwsh
-        run: Compress-Archive -Path ./publish/win-x64/* -DestinationPath ./publish/VortexModLists-win-x64.zip -Force
+      - name: Build MSI installer
+        run: >
+          dotnet build ./installer/VortexModLists.Installer.Msi/VortexModLists.Installer.Msi.wixproj
+          -c Release
+          -p:PublishDir=${{ github.workspace }}\publish\win-x64
+
+      - name: Build bootstrapper EXE
+        run: >
+          dotnet build ./installer/VortexModLists.Installer.Bundle/VortexModLists.Installer.Bundle.wixproj
+          -c Release
+          -p:DotNetDesktopRuntimePath=${{ github.workspace }}\publish\installer\windowsdesktop-runtime-10.0.0-win-x64.exe
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ./publish/VortexModLists-win-x64.zip
+          files: |
+            ./publish/installer/VortexModLists-Setup.exe
+            ./publish/installer/VortexModLists.msi
           generate_release_notes: true
