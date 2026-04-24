@@ -1,0 +1,49 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package Name="VortexModLists"
+           Manufacturer="FeltedRed"
+           Version="1.0.1.1"
+           UpgradeCode="9F339533-2C09-4ED4-A2FD-FD885B7AA9E5"
+           Scope="perMachine"
+           Language="1033">
+    <MajorUpgrade DowngradeErrorMessage="A newer version of VortexModLists is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <StandardDirectory Id="ProgramFiles64Folder">
+      <Directory Id="INSTALLFOLDER" Name="VortexModLists" />
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="ProgramMenuVortexModLists" Name="VortexModLists" />
+    </StandardDirectory>
+
+    <Feature Id="MainFeature" Title="VortexModLists" Level="1">
+      <ComponentGroupRef Id="AppFiles" />
+      <ComponentRef Id="StartMenuShortcutComponent" />
+    </Feature>
+  </Package>
+
+  <Fragment>
+    <ComponentGroup Id="AppFiles" Directory="INSTALLFOLDER">
+      <Files Include="$(var.PublishDir)\**" />
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <DirectoryRef Id="ProgramMenuVortexModLists">
+      <Component Id="StartMenuShortcutComponent" Guid="*">
+        <Shortcut Id="StartMenuShortcut"
+                  Name="VortexModLists"
+                  Description="Open VortexModLists"
+                  Target="[INSTALLFOLDER]VortexModLists.exe"
+                  WorkingDirectory="INSTALLFOLDER" />
+        <RemoveFolder Id="ProgramMenuFolderCleanup" On="uninstall" />
+        <RegistryValue Root="HKCU"
+                       Key="Software\FeltedRed\VortexModLists"
+                       Name="Installed"
+                       Type="integer"
+                       Value="1"
+                       KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+</Wix>

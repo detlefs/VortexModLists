@@ -8,34 +8,43 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-Write-Host "[1/5] Restore..."
+$publishDir = ".\publish\$Runtime"
+$installerDir = ".\publish\installer"
+$bundleExe = Join-Path $installerDir "VortexModLists-Setup.exe"
+$runtimeInstaller = Join-Path $installerDir "windowsdesktop-runtime-10.0.0-win-x64.exe"
+$runtimeDownloadUrl = "https://builds.dotnet.microsoft.com/dotnet/WindowsDesktop/10.0.0/windowsdesktop-runtime-10.0.0-win-x64.exe"
+
+Write-Host "[1/7] Restore..."
 dotnet restore
 
-Write-Host "[2/5] Build ($Configuration)..."
+Write-Host "[2/7] Build ($Configuration)..."
 dotnet build -c $Configuration --no-restore
 
-$publishDir = ".\publish\$Runtime"
-$zipPath = ".\publish\VortexModLists-$Runtime.zip"
-
-Write-Host "[3/5] Publish ($Configuration, $Runtime, self-contained, single-file)..."
+Write-Host "[3/7] Publish ($Configuration, $Runtime, framework-dependent)..."
 dotnet publish .\VortexModLists.csproj `
   -c $Configuration `
   -r $Runtime `
-  --self-contained true `
-  -p:PublishSingleFile=true `
-  -p:EnableCompressionInSingleFile=true `
-  -p:IncludeNativeLibrariesForSelfExtract=true `
+  --self-contained false `
+  -p:PublishSingleFile=false `
   -p:DebugType=None `
   -p:DebugSymbols=false `
   -o $publishDir
 
-Write-Host "[4/5] Create ZIP..."
-Get-ChildItem -Path $publishDir -Filter *.pdb -Recurse -ErrorAction SilentlyContinue | Remove-Item -Force -ErrorAction SilentlyContinue
-if (Test-Path $zipPath) {
-    Remove-Item $zipPath -Force
-}
-Compress-Archive -Path "$publishDir\*" -DestinationPath $zipPath -Force
+Write-Host "[4/7] Download .NET Desktop Runtime installer..."
+New-Item -ItemType Directory -Path $installerDir -Force | Out-Null
+Invoke-WebRequest -Uri $runtimeDownloadUrl -OutFile $runtimeInstaller
 
-Write-Host "[5/5] Done"
+Write-Host "[5/7] Build MSI installer..."
+dotnet build .\installer\VortexModLists.Installer.Msi\VortexModLists.Installer.Msi.wixproj `
+  -c $Configuration `
+  -p:PublishDir=$(Resolve-Path $publishDir)
+
+Write-Host "[6/7] Build bootstrapper EXE..."
+dotnet build .\installer\VortexModLists.Installer.Bundle\VortexModLists.Installer.Bundle.wixproj `
+  -c $Configuration `
+  -p:DotNetDesktopRuntimePath=$(Resolve-Path $runtimeInstaller)
+
+Write-Host "[7/7] Done"
 Write-Host "Publish output: $publishDir"
-Write-Host "ZIP package:    $zipPath"
+Write-Host "Installer output: $installerDir"
+Write-Host "Bootstrapper EXE: $bundleExe"
