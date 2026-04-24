@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include=".github\copilot-instructions.md" />
     <None Include=".github\workflows\build.yml" />
     <None Include=".github\workflows\release.yml" />
   </ItemGroup>
