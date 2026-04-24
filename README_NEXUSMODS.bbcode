@@ -1,0 +1,178 @@
+[size=5][b]VortexModLists[/b][/size]
+
+A lightweight Windows utility to view, filter and export your Nexus Mods Vortex mod lists.
+
+[size=4][b]Overview[/b][/size]
+
+VortexModLists reads mod metadata directly from your local Vortex installation and displays it in an organized table. Perfect for backup, sharing, or documentation of your mod setups.
+
+[b]No Vortex plugins needed[/b] — just point it to your Vortex data folder and go!
+
+[size=4][b]Features[/b][/size]
+
+[list]
+[*][b]Automatic Vortex Detection[/b] — Finds your mod data automatically or let you browse manually[/*]
+[*][b]Multi-Game Support[/b] — Switch between all your installed games[/*]
+[*][b]Smart Status Filtering[/b] — Filter by active/inactive mods directly in the table[/*]
+[*][b]Multiple Export Formats[/b] — Export as CSV, Markdown, or Excel[/*]
+[*][b]Quick Copy[/b] — Copy CSV/Markdown directly to clipboard[/*]
+[*][b]Dark/Light Theme[/b] — Follows your Windows settings automatically[/*]
+[*][b]Remembers Your Preferences[/b] — Saves window layout and column widths[/*]
+[/list]
+
+[size=4][b]Mod Details Shown[/b][/size]
+
+For each mod, the app displays:
+[list]
+[*][b]Mod Name[/b] — The mod's full name[/*]
+[*][b]ID[/b] — Unique mod identifier[/*]
+[*][b]Version[/b] — Current mod version[/*]
+[*][b]Homepage[/b] — Clickable link to the mod page[/*]
+[*][b]Status[/b] — Active or Inactive indicator[/*]
+[/list]
+
+[size=4][b]Getting Started[/b][/size]
+
+[b]Installation[/b]
+
+1. Download the
+[code]VortexModLists.zip[/code]
+2. Extract it to any folder (e.g.,
+[code]C:\Tools\VortexModLists[/code]
+)
+3. Run
+[code]VortexModLists.exe[/code]
+
+That's it! No installation, no registry changes, no dependencies to worry about.
+
+[b]Updates[/b]
+
+For the latest version and source code, visit GitHub: [url=https://github.com/detlefs/VortexModLists]VortexModLists on GitHub[/url]
+Latest Release: [url=https://github.com/detlefs/VortexModLists/releases/latest]Download here[/url]
+
+[b]First Run[/b]
+
+The app automatically searches for Vortex data in the standard location:
+[code]C:\Users\<YourUsername>\AppData\Roaming\Vortex\temp\state_backups_full[/code]
+If found, your mod list loads instantly.
+
+[b]Manual Data Source[/b]
+If automatic detection doesn't work:
+1. Click [b]Browse...[/b]
+2. Select either:
+[list]
+[*]A specific Vortex JSON file (e.g., 
+[code]hourly.json[/code]
+)[/*]
+[*]The entire backup folder (the app searches for the newest JSON)[/*]
+[/list]
+3. Click [b]Search Again[/b] to reload
+
+The app remembers your choice for next time.
+
+[size=4][b]Exporting Your Mod Lists[/b][/size]
+
+[b]Supported Formats[/b]
+[list]
+[*][b]CSV[/b] — Import into spreadsheets or databases[/*]
+[*][b]Markdown[/b] — Use online, or for documentation[/*]
+[*][b]Excel[/b] — Formatted 
+[code].xlsx[/code]
+with one sheet per game[/*]
+[/list]
+
+[b]Export Options[/b]
+[list]
+[*][b]Selected Game[/b] — Export only the currently viewed game[/*]
+[*][b]All Games[/b] — Export mods from every managed game[/*]
+[/list]
+
+[b]Quick Actions[/b]
+[list]
+[*]Copy CSV to clipboard[/*]
+[*]Copy Markdown to clipboard[/*]
+[/list]
+
+[size=4][b]Requirements[/b][/size]
+[list]
+[*][b]Windows 10 or newer[/b] (64-bit)[/*]
+[*][b]Nexus Mods Vortex[/b] installed with local state files[/*]
+[/list]
+
+[size=4][b]Vortex Data Files[/b][/size]
+The app reads these Vortex JSON files (in order of preference):
+
+1. [b]Most recent JSON[/b] in
+[code]state_backups_full[/code]
+folder
+2.
+[code]hourly.json [/code]
+— Regular Vortex backup
+3. 
+[code]state.json [/code]
+or
+[code]vortex-state.json[/code]
+4. Any
+[code]*.json [/code]
+file in the Vortex data folder
+
+[b]Note:[/b] The app reads your Vortex data in [b]read-only mode[/b]. It never modifies your Vortex setup or deployed mods.
+
+[size=4][b]Language Support[/b][/size]
+[list]
+[*]English (default)[/*]
+[*]German (Deutsch)[/*]
+[/list]
+
+[size=4][b]Troubleshooting[/b][/size]
+[b]"No data found"[/b]
+[list]
+[*]Make sure Vortex is installed and has mod data[/*]
+[*]Check if 
+[code]%AppData%\Vortex\temp\state_backups_full[/code]
+exists[/*]
+[*]Try clicking [b]Browse...[/b] and manually select the folder[/*]
+[/list]
+
+[b]App won't start[/b]
+[list]
+[*]Ensure you are using Windows 10 or newer[/*]
+[*]Make sure .NET 10 Runtime is available (bundled with app)[/*]
+[/list]
+
+[b]Data looks outdated[/b]
+[list]
+[*]Click [b]Search Again[/b] to reload the latest mod data[/*]
+[*]Vortex may not have created recent backups — verify in Vortex settings[/*]
+[*]Restart Vortex to trigger new backups. This may be needed after adding/removing mods.[/*]
+[/list]
+
+[size=4][b]Tips & Tricks[/b][/size]
+[list]
+[*]Use status filtering to focus on only active or inactive mods[/*]
+[*]Export to Markdown for easy sharing online[/*]
+[*]Export to Excel to track mod versions across your games[/*]
+[*]The app remembers your custom data source path between sessions[/*]
+[/list]
+
+[size=4][b]Support & Feedback[/b][/size]
+Found a bug? Have a feature wish? Visit the GitHub repository: [url=https://github.com/detlefs/VortexModLists]VortexModLists on GitHub[/url]
+[list]
+[*][b]Issues:[/b] Report bugs[/*]
+[*][b]Discussions:[/b] Ask questions and suggest features[/*]
+[*][b]Releases:[/b] Get the latest version[/*]
+[/list]
+
+[size=4][b]License[/b][/size]
+MIT License — See LICENSE file for details.
+
+[size=4][b]Disclaimer[/b][/size]
+[color=red][b]Important:[/b][/color]
+[list]
+[*]This tool is provided [b]as-is[/b] without warranty[/*]
+[*]Tested on Windows 10/11 with Vortex 1.16.9[/*]
+[*][b]Read-only[/b] — your mod setup is never modified[/*]
+[/list]
+[line]
+[b]Made with ♥ for Vortex users[/b]
+[i]Version 1.0.1.1 | Built with .NET 10 | Windows 64-bit[/i]
