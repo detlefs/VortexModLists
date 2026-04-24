@@ -13,10 +13,11 @@
   <Bundle Name="VortexModLists Setup"
           Manufacturer="FeltedRed"
           Version="1.0.1.2"
-          UpgradeCode="4A6C52D4-6EBC-4E13-B630-CBCF3867218F">
+          UpgradeCode="4A6C52D4-6EBC-4E13-B630-CBCF3867218F"
+          IconSourceFile="..\..\Assets\app.ico">
     <BootstrapperApplication>
       <bal:WixStandardBootstrapperApplication Theme="hyperlinkLicense"
-                                              LicenseUrl="https://github.com/detlefs/VortexModLists/blob/master/LICENSE" />
+                                              LicenseUrl="https://github.com/detlefs/VortexModLists/blob/master/LICENSE.txt" />
     </BootstrapperApplication>
 
     <Chain>

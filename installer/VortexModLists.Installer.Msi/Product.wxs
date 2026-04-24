@@ -8,6 +8,9 @@
     <MajorUpgrade DowngradeErrorMessage="A newer version of VortexModLists is already installed." />
     <MediaTemplate EmbedCab="yes" />
 
+    <Icon Id="AppIcon" SourceFile="..\..\Assets\app.ico" />
+    <Property Id="ARPPRODUCTICON" Value="AppIcon" />
+
     <StandardDirectory Id="ProgramFiles64Folder">
       <Directory Id="INSTALLFOLDER" Name="VortexModLists" />
     </StandardDirectory>
